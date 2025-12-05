@@ -1,136 +1,155 @@
 # 🔒 Prevent fallback to parent .editorconfig files
 root = true
 
-# 🧠 Apply all rules to C# source files
+# 🧠 Apply rules to all C# source files
 [*.cs]
 
 ##############################
 # ✍️ File formatting
 ##############################
 
-charset = utf-8                 # Ensures UTF-8 encoding—standard and cross-platform safe
-end_of_line = crlf             # Uses Windows-style line endings (CRLF)
-insert_final_newline = true    # Adds a newline at end of files for consistency
-trim_trailing_whitespace = true  # Removes spaces/tabs at the end of lines
-indent_style = space           # Uses spaces (not tabs) for indentation—clean and universal
-indent_size = 4                # Sets indentation depth to 4 spaces
-tab_width = 4                  # Controls how editors visually render tabs
+charset = utf-8                            # Ensures UTF-8 encoding — standard and cross-platform safe
+end_of_line = crlf                         # Uses Windows line endings (CRLF) — VS default
+insert_final_newline = true                # Adds a newline at the end of each file for consistency
+trim_trailing_whitespace = true            # Removes stray whitespace to keep diffs clean
+indent_style = space                       # Spaces are preferred by Microsoft for consistency
+indent_size = 4                            # Standard 4-space indentation for C# code
+tab_width = 4                               # Tabs visually align with indentation rules
 
 ##############################
-# 📦 Using directives
-##############################
-dotnet_remove_unnecessary_imports = true
-dotnet_sort_system_directives_first = true            # Puts System namespaces at the top
-dotnet_separate_import_directive_groups = true        # Adds a blank line between using groups
-csharp_using_directive_placement = outside_namespace:error  # Places using statements outside the namespace (enforced)
-csharp_prefer_simple_using_statement = true:error     # Prefer simplified C# 8 `using` form (with disposal)
-# Report unused usings as errors
-dotnet_diagnostic.IDE0005.severity = error
-##############################
-# 🧬 Code style: var usage
+# 📁 Namespaces & files
 ##############################
 
-# ❌ Prevent use of 'var' even if type is obvious—enforce explicit types
-csharp_style_var_for_built_in_types = false:error
-csharp_style_var_when_type_is_apparent = false:error
-csharp_style_var_elsewhere = true:suggestion         # Allow 'var' only when type is complex or unclear
+csharp_style_namespace_declarations = file_scoped:warning   # Microsoft default since .NET 6 — file-scoped namespaces
 
 ##############################
-# 📐 Code style: expression-bodied members
+# 🧩 Brace layout
 ##############################
 
-# Choose when to allow expression-bodied members (arrow functions)
-csharp_style_expression_bodied_methods = false:error       # Force full method bodies
-csharp_style_expression_bodied_properties = true:error     # Allow for simple properties
-csharp_style_expression_bodied_constructors = false:error  # Avoid compact constructors
-csharp_style_expression_bodied_operators = false:error     # Use full-bodied operators
-csharp_style_expression_bodied_indexers = true:error       # Indexers can be concise
-csharp_style_expression_bodied_accessors = true:error      # Allow simple get/set as expression-bodied
-csharp_style_expression_bodied_lambdas = true:error        # Support concise lambda bodies
-csharp_style_expression_bodied_local_functions = false:error  # Enforce full local function syntax
+csharp_new_line_before_open_brace = all                     # Always put '{' on a new line — MS standard
+csharp_new_line_before_else = true                          # Place 'else' on new line for clarity
+csharp_new_line_before_catch = true                         # Consistent layout for exception blocks
+csharp_new_line_before_finally = true                       # Improves readability of try/catch/finally
+csharp_new_line_between_query_expression_clauses = true     # Aligns complex LINQ expressions vertically
 
 ##############################
-# 🧱 Braces and structure
+# 🎛 Indentation rules
 ##############################
 
-csharp_prefer_braces = true:error  # Always require braces for control flow (if, while, etc.)
+csharp_indent_block_contents = true                         # Indent code blocks normally
+csharp_indent_braces = false                                # Braces align with their container
+csharp_indent_case_contents = true                          # Indented case bodies — MS standard
+csharp_indent_switch_labels = true                          # Switch labels aligned and readable
+csharp_indent_labels = flush_left                           # Labels placed at root indentation
 
 ##############################
-# 🎯 Miscellaneous style preferences
+# ➕ Spacing conventions
 ##############################
 
-dotnet_style_prefer_auto_properties = true:error           # Prefer get/set over full backing fields
-dotnet_style_object_initializer = true:error               # Encourage object initializers
-dotnet_style_collection_initializer = true:error           # Favor collection initializers like `new[] { }`
-dotnet_style_prefer_simplified_boolean_expressions = true:error
-dotnet_style_prefer_conditional_expression_over_assignment = true:error
-dotnet_style_prefer_conditional_expression_over_return = true:error
-dotnet_style_coalesce_expression = true:error              # Prefer `??` operator
-dotnet_style_null_propagation = true:error                 # Prefer `?.` null-safe access
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true:error
-dotnet_style_prefer_inferred_tuple_names = true:error
-dotnet_style_explicit_tuple_names = true:error
-dotnet_style_prefer_inferred_anonymous_type_member_names = true:error
-dotnet_style_prefer_compound_assignment = true:error       # Prefer `+=` over `x = x + y`
-dotnet_style_prefer_simplified_interpolation = true:error  # Encourage $"{name}" style
+csharp_space_after_cast = true                              # Improves readability of cast expressions
+csharp_space_after_keywords_in_control_flow_statements = true  # 'if (...)' instead of 'if(...)'
+csharp_space_between_method_call_parameter_list_parentheses = false   # No spaces inside parentheses
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_around_binary_operators = before_and_after      # a + b — spacing improves clarity
 
 ##############################
-# 🧭 Top-level and modern features
+# 📚 Using directives
 ##############################
 
-csharp_style_namespace_declarations = file_scoped:error      # Prefer file-scoped namespaces (C# 10+)
-csharp_style_prefer_top_level_statements = true:error        # Use top-level `Main` entry (C# 9+)
-csharp_style_prefer_primary_constructors = true:error        # Enforce primary constructors (C# 12+)
-csharp_prefer_system_threading_lock = true:error             # Prefer `System.Threading.Lock` for clarity
+dotnet_sort_system_directives_first = true                  # Always place 'System.*' first — MS guideline
+csharp_using_directive_placement = outside_namespace         # Usings outside namespaces — current MS standard
 
 ##############################
-# 🔓 Modifiers and accessibility
+# 🏷 Naming rules (Microsoft conventions)
 ##############################
 
-dotnet_style_require_accessibility_modifiers = always:error  # Enforce use of public/private/etc.
-
-##############################
-# 🔤 Naming conventions
-##############################
-
-# 👤 Private readonly fields: _camelCase
-dotnet_naming_rule.private_fields_should_be_camel_case.severity = error
-dotnet_naming_rule.private_fields_should_be_camel_case.symbols = private_fields
-dotnet_naming_rule.private_fields_should_be_camel_case.style = camel_case
+# 📌 Private fields → _camelCase (Microsoft + current .NET SDK style)
+dotnet_naming_rule.private_fields_underscore.severity = warning
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = camel_with_underscore
 
 dotnet_naming_symbols.private_fields.applicable_kinds = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
-dotnet_naming_symbols.private_fields.required_modifiers = readonly
 
-dotnet_naming_style.camel_case.capitalization = camel_case
-dotnet_naming_style.camel_case.required_prefix = _
-dotnet_naming_style.camel_case.word_separator = _
-# 👤 Private non-readonly fields: _camelCase
-dotnet_naming_rule.private_nonreadonly_fields_should_be_camel_case.severity = error
-dotnet_naming_rule.private_nonreadonly_fields_should_be_camel_case.symbols = private_nonreadonly_fields
-dotnet_naming_rule.private_nonreadonly_fields_should_be_camel_case.style = camel_case_with_underscore
+dotnet_naming_style.camel_with_underscore.capitalization = camel_case
+dotnet_naming_style.camel_with_underscore.required_prefix = _
+dotnet_naming_style.camel_with_underscore.word_separator =
 
-dotnet_naming_symbols.private_nonreadonly_fields.applicable_kinds = field
-dotnet_naming_symbols.private_nonreadonly_fields.applicable_accessibilities = private
-dotnet_naming_symbols.private_nonreadonly_fields.required_modifiers =
-# Note: No required_modifiers means it matches fields without readonly modifier
+# 📌 Public members → PascalCase
+dotnet_naming_rule.public_members_pascal.severity = error
+dotnet_naming_rule.public_members_pascal.symbols = public_members
+dotnet_naming_rule.public_members_pascal.style = pascal_case
 
-dotnet_naming_style.camel_case_with_underscore.capitalization = camel_case
-dotnet_naming_style.camel_case_with_underscore.required_prefix = _
-dotnet_naming_style.camel_case_with_underscore.word_separator =
-# 🧾 Method parameters: camelCase (no prefix)
-dotnet_naming_rule.parameters_should_be_camel_case.severity = error
-dotnet_naming_rule.parameters_should_be_camel_case.symbols = method_parameters
-dotnet_naming_rule.parameters_should_be_camel_case.style = simple_camel_case
+dotnet_naming_symbols.public_members.applicable_accessibilities = public, protected, protected_internal
+dotnet_naming_symbols.public_members.applicable_kinds = method, property, field, event
 
-dotnet_naming_symbols.method_parameters.applicable_kinds = parameter
+dotnet_naming_style.pascal_case.capitalization = pascal_case
+dotnet_naming_style.pascal_case.required_prefix =
+dotnet_naming_style.pascal_case.word_separator =
 
-dotnet_naming_style.simple_camel_case.capitalization = camel_case
-dotnet_naming_style.simple_camel_case.required_prefix =
-dotnet_naming_style.simple_camel_case.word_separator =
+# 📌 Interfaces → I-PascalCase
+dotnet_naming_rule.interfaces_prefix.severity = error
+dotnet_naming_rule.interfaces_prefix.symbols = interface_symbols
+dotnet_naming_rule.interfaces_prefix.style = interface_style
+
+dotnet_naming_symbols.interface_symbols.applicable_kinds = interface
+
+dotnet_naming_style.interface_style.capitalization = pascal_case
+dotnet_naming_style.interface_style.required_prefix = I
 
 ##############################
-# 🎛 Visual Studio file types
+# 🧠 var usage rules (Microsoft balanced approach)
+##############################
+
+csharp_style_var_for_built_in_types = false:warning         # Prefer explicit types for primitives
+csharp_style_var_when_type_is_apparent = true:suggestion    # allow: var x = new Foo()
+csharp_style_var_elsewhere = false:warning                  # No var when type is not obvious
+
+##############################
+# 🧪 Expression & pattern rules
+##############################
+
+csharp_style_prefer_switch_expression = true:suggestion      # Encourage modern switch expressions
+csharp_style_expression_bodied_methods = false:silent        # Use expression bodies sparingly
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+csharp_style_pattern_matching_over_is_with_cast_check = true:warning
+csharp_style_prefer_not_pattern = true:suggestion
+
+##############################
+# 🔒 Nullability & safety
+##############################
+
+dotnet_style_null_propagation = true:warning                # Use ?. for safer access
+dotnet_style_coalesce_expression = true:suggestion           # Prefer ?? expressions
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:error
+
+##############################
+# 📦 Readonly & immutability
+##############################
+
+dotnet_style_readonly_field = true:error                    # Use readonly for fields when possible
+
+##############################
+# 🧹 Analyzer rules (Microsoft defaults)
+##############################
+
+dotnet_analyzer_diagnostic.severity = warning               # Treat all analyzer diagnostics as warnings
+
+# Enforce async best practices
+dotnet_diagnostic.CA2007.severity = warning                 # Do not use ConfigureAwait(false) unnecessarily
+
+# Null checks for public APIs
+dotnet_diagnostic.CA1062.severity = error                   # Validate method arguments
+
+# Prefer static members when possible
+dotnet_diagnostic.CA1822.severity = warning
+
+# Dead code & simplification hints
+dotnet_diagnostic.IDE0001.severity = warning                # Simplify name
+dotnet_diagnostic.IDE0044.severity = warning                # Make field readonly
+
+##############################
+# 🎨 Visual Studio file types
 ##############################
 
 [*.{cs,vb}]
