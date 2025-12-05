@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using System.CommandLine;
+
+RootCommand rootCommand = new("Command-line app for working with Active Directory users");
